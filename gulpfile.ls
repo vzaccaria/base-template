@@ -95,12 +95,18 @@ gulp.task 'build-index', ['build-html'] ->
     gulp.src "#destination/html/index.html"
         .pipe gulp.dest "#destination"
 
-gulp.task 'build-client-js', ->
+gulp.task 'build-client-js', ['build-client-ls'], ->
+    gulp.src "#destination/js/build/*.js"
+        .pipe plumber()
+        .pipe concat('client.js')
+        .pipe gulp.dest "#destination/js"
+
+gulp.task 'build-client-ls', ->
     gulp.src client-ls
         .pipe plumber()
+        .pipe changed "#destination/js/build"
         .pipe live()
-        .pipe(concat('client.js'))
-        .pipe gulp.dest "#destination/js"
+        .pipe gulp.dest "#destination/js/build"
 
 gulp.task 'build-vendor-js-prod', ->
     gulp.src vendor-js
@@ -120,7 +126,13 @@ gulp.task 'build-vendor-js', ->
 gulp.task 'build-less', ->
     gulp.src client-less
         .pipe plumber()
+        .pipe changed "#destination/css/build"
         .pipe less()
+        .pipe gulp.dest "#destination/css/build"
+
+gulp.task 'build-css', ['build-less'], ->
+    gulp.src "#destination/css/build/*.css"
+        .pipe plumber()
         .pipe concat('client.css')
         .pipe gulp.dest "#destination/css"
 
@@ -165,6 +177,10 @@ gulp.task 'build-clean', ->
     gulp.src destination, {read: false}
         .pipe clean()
 
+gulp.task 'js-build-clean', ->
+    gulp.src "#destination/js/build", {read: false}
+        .pipe clean()
+
 gulp.task 'watch-build', ->
   startExpress();
   startLivereload();
@@ -195,7 +211,7 @@ gulp.task 'default', [
     \build-vendor-js
     \build-client-js
     \build-vendor-css
-    \build-less
+    \build-css
     \build-fonts
     \build-img
     \copy-data
@@ -208,7 +224,7 @@ gulp.task 'production', [
     \build-vendor-js-prod
     \build-client-js
     \build-vendor-css
-    \build-less
+    \build-css
     \build-fonts
     \build-img
     \copy-data
