@@ -1,35 +1,8 @@
 
-destination = '_site'
-remote = 'template'
-
-vendor-js = 
-    "./assets/components/*.js"
-    ...
-
-client-ls =
-    "./assets/js/*.ls"
-    ...
-
-client-html = 
-    "./assets/*.jade"
-    "./assets/views/*.jade"
-    ...
-
-client-less = 
-    './assets/less/*.less'
-    ...
-
-vendor-css = 
-    './vendor/css/*.css'
-    ...
-
-font-dir = './assets/fonts'
-
-img-dir = './assets/img'
-
-directives = [
-    './assets/directives/*.sjs'
-    ]
+{ client-html, client-less, client-ls, directives } = require('./config')
+{ vendor-js, vendor-css, , data-to-be-copied }      = require('./config')
+{ remote, destination, font-dir, img-dir }          = require('./config')
+ 
 
 force-file-reload = [
     "#destination/**/*.html"
@@ -37,10 +10,6 @@ force-file-reload = [
     "#destination/**/*.js"
     "#destination/**/*.png"
     "#destination/**/*.jpg"
-    ]
-
-data-to-be-copied = [
-    "./data/*.json"
     ]
 
 require! 'gulp'
