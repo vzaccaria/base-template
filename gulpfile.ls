@@ -1,5 +1,5 @@
 
-{ client-html, client-less, client-ls, directives } = require('./config')
+{ client-html, client-less, client-ls, client-brfy-roots, directives, other-deps } = require('./config')
 { vendor-js, vendor-css, , data-to-be-copied }      = require('./config')
 { remote, destination, font-dir, img-dir }          = require('./config')
  
@@ -13,21 +13,22 @@ force-file-reload = [
     ]
 
 require! 'gulp'
-jade     = require 'gulp-jade'
-stylus   = require 'gulp-stylus'
-ftp      = require 'gulp-ftp'
-less     = require 'gulp-less'
-live     = require 'gulp-livescript'
-uglify   = require 'gulp-uglify'
-concat   = require 'gulp-concat'
-rename   = require 'gulp-rename'
-exec     = require 'gulp-exec'
-clean    = require 'gulp-clean'
-filesize = require('gulp-filesize');
-spawn    = require 'gulp-spawn'
-changed  = require 'gulp-changed'
-plumber  = require('gulp-plumber');
-cr       = require '/Users/zaccaria/.ssh/sftp_credentials'
+jade       = require 'gulp-jade'
+stylus     = require 'gulp-stylus'
+ftp        = require 'gulp-ftp'
+less       = require 'gulp-less'
+browserify = require 'gulp-browserify'
+live       = require 'gulp-livescript'
+uglify     = require 'gulp-uglify'
+concat     = require 'gulp-concat'
+rename     = require 'gulp-rename'
+exec       = require 'gulp-exec'
+clean      = require 'gulp-clean'
+filesize   = require('gulp-filesize');
+spawn      = require 'gulp-spawn'
+changed    = require 'gulp-changed'
+plumber    = require('gulp-plumber');
+cr         = require '/Users/zaccaria/.ssh/sftp_credentials'
 
 
 
@@ -65,8 +66,11 @@ gulp.task 'build-index', ['build-html'] ->
         .pipe gulp.dest "#destination"
 
 gulp.task 'build-client-js', ['build-client-ls'], ->
-    gulp.src "#destination/js/build/*.js"
+    gulp.src client-js, { read: false }
         .pipe plumber()
+        .pipe browserify {
+            insertGlobals : false
+        }
         .pipe concat('client.js')
         .pipe gulp.dest "#destination/js"
 

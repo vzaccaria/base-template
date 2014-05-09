@@ -15,6 +15,8 @@ _module = ->
           "./assets/js/*.ls"
           ...
 
+      client-brfy-roots: [ 'entry.js' ]
+
       client-html:
           "./assets/*.jade"
           "./assets/views/*.jade"
