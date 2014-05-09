@@ -27,6 +27,10 @@ _module = ->
           './assets/less/*.less'
           ...
 
+      directives:[
+          './assets/directives/*.sjs'
+          ]
+
       # vendor files 
       vendor-css:
           './vendor/css/*.css'
@@ -39,8 +43,11 @@ _module = ->
 
       data-to-be-copied:[
           "./data/*.json"
+          "./assets/less/*.dss"
           ]
 
+
+      other-deps: []
 
     }
   

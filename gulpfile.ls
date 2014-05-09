@@ -3,6 +3,9 @@
 { vendor-js, vendor-css, , data-to-be-copied }      = require('./config')
 { remote, destination, font-dir, img-dir }          = require('./config')
  
+client-js = [ "#destination/js/build/#s" for s in client-brfy-roots ]
+
+files-to-watch = client-ls ++ client-less ++ client-html ++ directives ++ other-deps
 
 force-file-reload = [
     "#destination/**/*.html"
@@ -158,7 +161,7 @@ gulp.task 'watch-build', ->
   startExpress();
   startLivereload();
   gulp.watch(force-file-reload, notifyLivereload);
-  files-to-watch = client-ls ++ client-less ++ client-html ++ directives
+  files-to-watch = client-ls ++ client-less ++ client-html ++ directives ++ other-deps
   gulp.watch(files-to-watch, ["default"])
 
 
