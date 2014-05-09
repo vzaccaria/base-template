@@ -4,13 +4,15 @@ _module = ->
           
     iface = { 
 
-      destination:'_site'
+      # main properties 
+      destination:'dist'
       remote:'simple-login'
 
       vendor-js:
-          "./bower_components/*.js"
+          "./bower_components/jquery/dist/jquery.min.js"
           ...
 
+      # client files 
       client-ls:
           "./assets/js/*.ls"
           ...
@@ -26,17 +28,15 @@ _module = ->
           './assets/less/*.less'
           ...
 
+      # vendor files 
       vendor-css:
           './vendor/css/*.css'
           ...
 
+      # other assets
       font-dir:'./assets/fonts'
 
       img-dir:'./assets/img'
-
-      directives:[
-          './assets/directives/*.sjs'
-          ]
 
       data-to-be-copied:[
           "./data/*.json"
