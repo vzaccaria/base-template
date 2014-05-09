@@ -214,4 +214,4 @@ gulp.task 'dev', (done) ->
     runSequence 'build-clean', 'default', 'watch-build', done
 
 gulp.task 'deploy', (done) ->
-    runSequence 'build-clean', 'production', 'ftp'
+    runSequence 'build-clean', 'default', 'ftp'
