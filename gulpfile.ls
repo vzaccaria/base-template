@@ -214,6 +214,20 @@ process.on 'SIGINT', ->
 
 runSequence = require('run-sequence');
 
+ph = (m) ->
+    console.log '** Gulp **:', m 
+
+gulp.task 'help', (done) ->
+    ph 'Welcome to this gulpfile.ls'
+    ph '' 
+    ph 'To launch a simple dev session (no structure modification):'
+    ph '> cult dev'
+    ph ''
+    ph 'To launch a self-watching gulp session:'
+    ph '> supervisor -i dist,lib -e ls -x gulp -- dev --require LiveScript '
+    ph ''
+    ph 'Remember to kill supervisor then..'
+
 gulp.task 'dev', (done) ->
     runSequence 'build-clean', 'default', 'watch-build', done
 
