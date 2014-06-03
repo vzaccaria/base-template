@@ -35,6 +35,7 @@ cr         = require '/Users/zaccaria/.ssh/sftp_credentials'
 
 
 
+
 EXPRESS_PORT    = 4000;
 EXPRESS_ROOT    = destination;
 LIVERELOAD_PORT = 35729;
@@ -207,6 +208,9 @@ gulp.task 'production', [
     \sjs
     ...
     ]
+
+process.on 'SIGINT', ->
+    process.exit()
 
 runSequence = require('run-sequence');
 
